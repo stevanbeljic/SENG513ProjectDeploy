@@ -22,7 +22,7 @@ let databaseConnection;
   try {
       // Create a new connection
       databaseConnection = mysql.createConnection({
-          host: process.env.DB_HOST,
+          host: "sdmkw",
           user: process.env.DB_USER,
           password: process.env.DB_PASSWORD,
       });
