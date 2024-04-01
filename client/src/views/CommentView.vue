@@ -31,7 +31,7 @@
             return {route};
         },
         mounted() {
-            fetch("http://localhost:7003/discussion/getDiscussionAndPosterById?id=" +  this.$route.params.discussionId, {method: "GET"})
+            fetch("https://seng513project-production.up.railway.app/discussion/getDiscussionAndPosterById?id=" +  this.$route.params.discussionId, {method: "GET"})
             .then(res => res.json())
             .then(data => {
                 this.game_name = data[0].name;
@@ -66,7 +66,7 @@
                     poster_id: userId.value
                 }
                 console.log(body)
-                const response = await fetch('http://localhost:7003/discussion/addDiscussionResponse', {method: 'POST', headers: {"Access-Control-Allow-Origin" : "*",
+                const response = await fetch('https://seng513project-production.up.railway.app/discussion/addDiscussionResponse', {method: 'POST', headers: {"Access-Control-Allow-Origin" : "*",
                 "Access-Control-Allow-Methods" : "POST","Content-Type" : "application/json"}, body: JSON.stringify(body)})
                 console.log(response);
                 if(response.status==200){

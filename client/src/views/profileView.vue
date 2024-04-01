@@ -23,7 +23,7 @@
 
     const userData = ref([]);
     const fetchUserInfo = async () => {
-        const response = await fetch('http://localhost:7003/viewProfile/', {
+        const response = await fetch('https://seng513project-production.up.railway.app/viewProfile/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +38,7 @@
 
     const topGames = ref([]);
     const fetchTopGames = async() => {
-        const response = await fetch('http://localhost:7003/user/topGames?username='+profileUsername.value);
+        const response = await fetch('https://seng513project-production.up.railway.app/user/topGames?username='+profileUsername.value);
         topGames.value = await response.json();
     }
 
@@ -107,7 +107,7 @@
             <ul>
                 <li v-for="game in topGames" :key="game.id">
                     <div class="topGamesImage">
-                        <img :src="'http://localhost:7003' + game.thumbnail" alt="Image Unavailable" id ="marioIcon">
+                        <img :src="'https://seng513project-production.up.railway.app' + game.thumbnail" alt="Image Unavailable" id ="marioIcon">
                     </div>
                     <div class="topGamesImageTitle">
                         <h3 v-text="game.name"></h3>

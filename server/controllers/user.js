@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const databaseConnection = require('../model/model');
 const mariadb = require('mariadb');
+const bcrypt = require('bcrypt');
+const saltTime = 2;
 
 router.post('/confirmRequest', (req, res) => {
   console.log("here");
@@ -155,7 +157,7 @@ router.get('/getAccount', (req, res) => {
     const { username, password } = req.query;
     // Check credentials against the database
 
-    databaseConnection.query('SELECT username, role, id FROM users WHERE username = ?', [username], (err, results) => {
+    databaseConnection.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
       if (err) {
         console.error('Error executing query:', err);
         return res.status(500).send('Internal server error');
@@ -163,11 +165,16 @@ router.get('/getAccount', (req, res) => {
       
       // Check if user with provided username and password exists
       if (results.length === 0) {
-        //return res.status(401).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
       }
-      // If user exists and credentials are correct, you can send some data back
+      
+      const passwordsEqual = await bcrypt.compare(password, results[0].password);
+
+      if(!passwordsEqual){
+        return res.status(401).send('Unauthorized');
+      }
+
       res.status(201).json(results);
-      //res.json({ message: 'User authenticated successfully', user: results[0] });
     });
   });
 
@@ -190,7 +197,7 @@ router.get('/topGames', (req, res) => {
   });
 });
 
-router.post('/createAccount', (req, res) => {
+router.post('/createAccount', async (req, res) => {
   const { username, email, password, role} = req.body;
   if (!username || !email || !password || !role) {
 
@@ -199,7 +206,7 @@ router.post('/createAccount', (req, res) => {
   console.log(username, email, password, role);
   console.log(req.body);
   // Check if the username already exists
-  databaseConnection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+  databaseConnection.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
     if (err) {
       console.error('Error executing query:', err);
       return res.status(500).send('Internal server error');
@@ -210,8 +217,11 @@ router.post('/createAccount', (req, res) => {
       return res.status(400).send('Username already exists');
     }
 
+    const hashedPassword = await bcrypt.hash(password, saltTime);
+    console.log(hashedPassword);
+
     // Insert the new user into the database
-    databaseConnection.query('INSERT INTO users (role, username, password) VALUES (?, ?, ?)', [role, username, password], (err, result) => {
+    databaseConnection.query('INSERT INTO users (role, username, password) VALUES (?, ?, ?)', [role, username, hashedPassword], (err, result) => {
       if (err) {
         console.error('Error executing query:', err);
         return res.status(500).send('Internal server error');

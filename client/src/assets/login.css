@@ -17,6 +17,7 @@ body{
     width: 100%;
     height: 100vh;
     margin: 0;
+    font-family: 'Kanit';
     
 }
 
@@ -29,6 +30,7 @@ body{
     flex-direction: column;
     border-radius: 25px;
     background-color: rgba(201, 133, 255, 0.6);
+    min-height: 400px;
 
     @media (max-width: 700px){
         width: 75%;
@@ -38,6 +40,7 @@ body{
 .form-input, #login-button{
     width: 70%;
     max-width: 25vw;
+
 
     @media (max-width: 700px){
         max-width: none;
@@ -50,19 +53,25 @@ body{
     outline: none;
     height: 25px;
     width: 100%;
-    padding: 0px 2%;
+    padding: 5px;
     border-radius: 5px;
     font-family: 'Kanit';
     font-size: 20px;
+    box-shadow: 5px 5px 5px lightblue;
+    margin: 10px;
+
 }
 
-.form-input input:focus, .form-input input:hover, #login-button button:hover, #guestBtn button:hover{
+.form-input input:focus, .form-input input:hover{
     box-shadow: 0 2px 12px 0 rgba(0,0,0,0.16),0 0 0 2px rgba(0,0,0,0.08);
 }
 
 .login-link:active, .login-link, .login-link:active{
     color:#F2E1FF;
     text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 10px;
 
     @media (max-width: 700px){
         width: 150px;
@@ -73,11 +82,23 @@ body{
     color:#000000
 }
 
-#login-button button{
-    background-color: #F2E1FF;;
-    border-radius: 16px;
-    width: 33%;
+#login-button button, #guestBtn button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F2E1FF;
+    font-family: 'Kanit';
+    font-size: 24px;
+    padding: 2px;
+    border: 0;
+    width: 150px;
     height: 30px;
+    box-shadow: 5px 5px 5px lightblue;
+    border-radius: 5px;
+}
+
+#login-button button:hover, #guestBtn button:hover{
+    transform: scale(1.02);
 }
 
 #login-button{
@@ -100,12 +121,15 @@ body{
     height: 30px;
     text-align: center;
     margin: 0% 2%;
+    
 }
 
 #user-class-selector{
     display: flex;
     justify-content: center;
+    align-items: center;
     color: #F2E1FF;
+    margin: 10px;
 
     @media (max-width: 700px){
         width: 100%;
@@ -128,11 +152,12 @@ body{
 }
 
 #guestBtn button {
-    width: 70%;
+    width: 200px;
     max-width: 25vw;
-    height: 7vh;
+    height: auto;
+    padding: 5px;
     background-color: #F2E1FF;;
-    border-radius: 16px;
+    border-radius: 5px;
 }
 
 #routerGuestBtn{

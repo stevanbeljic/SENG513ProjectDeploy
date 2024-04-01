@@ -42,7 +42,7 @@
         gameData.append('publisher', username.value);
         gameData.append('imageFile', imageFile.files[0]);
 
-        const response = await fetch(`http://localhost:7003/game/uploadGame`, {
+        const response = await fetch(`https://seng513project-production.up.railway.app/game/uploadGame`, {
             method: 'POST',
             body: gameData
         });

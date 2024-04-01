@@ -30,7 +30,7 @@ import router from "@/router";
             }
         },
         mounted(){
-                let route = "http://localhost:7003/game/getAllGames";
+                let route = "https://seng513project-production.up.railway.app/game/getAllGames";
                 fetch(route, {method: "GET"})
                 .then(res => res.json())
                 .then(data => this.games = data)
@@ -83,7 +83,7 @@ import router from "@/router";
 
             <div v-for="item in filteredGames" :key="item.id" class="newsItem" v-on:click=handleClick(item.id)>
                 <!-- <a href={{ }}> -->
-                    <img :src="'http://localhost:7003' + item.thumbnail" alt="Image Unavailable"/>
+                    <img :src="'https://seng513project-production.up.railway.app' + item.thumbnail" alt="Image Unavailable"/>
                     <p>{{ item.name }}</p>
                     <p class="articleDesc">{{ item.description }}</p>
                 <!-- </a> -->

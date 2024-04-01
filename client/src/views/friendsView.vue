@@ -20,7 +20,7 @@
 
     const friendsList = ref([]);
     const fetchFriendInfo = async () => {
-            const route = "http://localhost:7003/user/getFriends?username=" + username.value;
+            const route = "https://seng513project-production.up.railway.app/user/getFriends?username=" + username.value;
             console.log(route);
             console.log(username.value);
             const response = await fetch(route, {
@@ -40,8 +40,9 @@
   onMounted(async () => {
         updateSessionData();
         if(loggedIn.value != true){
-            router.push("/");
+            
             alert("Please login to view your Friends List");
+            router.push("/");
         } else {
             try {
                 await fetchFriendInfo();

@@ -28,7 +28,7 @@
             window.location.reload();
             return;
         }
-        const response = await fetch(`http://localhost:7003/user/sendRequest?username=${username.value}&friendUser=${friendUser.value}`, {
+        const response = await fetch(`https://seng513project-production.up.railway.app/user/sendRequest?username=${username.value}&friendUser=${friendUser.value}`, {
             method: 'POST',
         });
         let status = await response.status;

@@ -18,7 +18,7 @@
     };
 
     const confirmRequest = async (friendUsername) => {
-        const response = await fetch(`http://localhost:7003/user/confirmRequest?username=${username.value}&friendUsername=${friendUsername}`, {
+        const response = await fetch(`https://seng513project-production.up.railway.app/user/confirmRequest?username=${username.value}&friendUsername=${friendUsername}`, {
             method: 'POST',
         });
         let status = await response.status;
@@ -30,7 +30,7 @@
     };
 
     const rejectRequest = async (friendUsername) => {
-        const response = await fetch(`http://localhost:7003/user/rejectRequest?username=${username.value}&friendUsername=${friendUsername}`, {
+        const response = await fetch(`https://seng513project-production.up.railway.app/user/rejectRequest?username=${username.value}&friendUsername=${friendUsername}`, {
             method: 'POST',
         });
 
@@ -43,7 +43,7 @@
     };
 
     const revokeRequest = async (friendUsername) => {
-        const response = await fetch(`http://localhost:7003/user/rejectRequest?username=${friendUsername}&friendUsername=${username.value}`, {
+        const response = await fetch(`https://seng513project-production.up.railway.app/user/rejectRequest?username=${friendUsername}&friendUsername=${username.value}`, {
             method: 'POST',
         });
 
@@ -57,7 +57,7 @@
 
     const incomingFriendsRequestList = ref([]);
     const fetchIncomingFriendRequests = async () => {
-            const route = "http://localhost:7003/user/getIncomingFriendRequests?username=" + username.value;
+            const route = "https://seng513project-production.up.railway.app/user/getIncomingFriendRequests?username=" + username.value;
             const response = await fetch(route, {
                 method: "GET",
                 headers: {
@@ -73,7 +73,7 @@
 
     const outgoingFriendsRequestList = ref([]);
     const fetchOutgoingFriendRequests = async () => {
-            const route = "http://localhost:7003/user/getOutgoingFriendRequests?username=" + username.value;
+            const route = "https://seng513project-production.up.railway.app/user/getOutgoingFriendRequests?username=" + username.value;
             const response = await fetch(route, {
                 method: "GET",
                 headers: {
