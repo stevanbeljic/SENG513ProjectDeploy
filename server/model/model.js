@@ -24,13 +24,14 @@ let databaseConnection;
 
   try {
       // Create a new connection
-      databaseConnection = mysql.createConnection(connectionString);
-      // databaseConnection = mysql.createConnection({
-      //   host: 'roundhouse.proxy.rlwy.net',
-      //   user: 'root',
-      //   password: 'password',
-      //   database: 'mmgadb'
-      // });
+      // databaseConnection = mysql.createConnection("mariadb://root:password@roundhouse.proxy.rlwy.net:3306/mmgadb");
+      databaseConnection = mysql.createConnection({
+        host: 'roundhouse.proxy.rlwy.net',
+        user: 'root',
+        password: '',
+        port: '42503',
+        database: 'mmgadb'
+      });
 
       // Print connection thread
       console.log(`Connected!`);
@@ -40,14 +41,14 @@ let databaseConnection;
       return;
   }
 
-  //creates the database if it does not exist already
-  // databaseConnection.query("CREATE DATABASE IF NOT EXISTS MMGADB", (err, results) => {
-  //   if (err) {
-  //       console.error('Error creating database:', err);
-  //       return;
-  //   }
-  //   console.log('Database "mmgadb" created');
-  // });
+  // creates the database if it does not exist already
+  databaseConnection.query("CREATE DATABASE IF NOT EXISTS mmgadb", (err, results) => {
+    if (err) {
+        console.error('Error creating database:', err);
+        return;
+    }
+    console.log('Database "mmgadb" created');
+  });
 
   // databaseConnection.query("USE MMGADB", (err, results) => {
   //   if (err) {
@@ -81,8 +82,8 @@ let databaseConnection;
     });
   };
 
-  executeSqlFile("./db_init/01_schema.sql", databaseConnection);
-  executeSqlFile("./db_init/02_init.sql", databaseConnection);
+ executeSqlFile("./db_init/01_schema.sql", databaseConnection);
+ executeSqlFile("./db_init/02_init.sql", databaseConnection);
 
   /*
     // Read SQL file
