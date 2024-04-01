@@ -29,7 +29,7 @@ let databaseConnection;
         host: 'roundhouse.proxy.rlwy.net',
         port: '46897',
         user: 'root',
-        password: '',
+        password: 'password',
         database: 'mmgadb'
       });
 
