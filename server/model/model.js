@@ -24,13 +24,13 @@ let databaseConnection;
 
   try {
       // Create a new connection
-      // databaseConnection = mysql.createConnection(connectionString);
-      databaseConnection = mysql.createConnection({
-        host: 'roundhouse.proxy.rlwy.net',
-        user: 'root',
-        password: 'password',
-        database: 'mmgadb'
-      });
+      databaseConnection = mysql.createConnection(connectionString);
+      // databaseConnection = mysql.createConnection({
+      //   host: 'roundhouse.proxy.rlwy.net',
+      //   user: 'root',
+      //   password: 'password',
+      //   database: 'mmgadb'
+      // });
 
       // Print connection thread
       console.log(`Connected!`);
