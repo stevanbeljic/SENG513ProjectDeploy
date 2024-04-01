@@ -10,6 +10,7 @@ const dbHost = process.env.DB_HOST;
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 const connectionString = process.env.MYSQL_URL;
+const dbPort = process.env.DB_PORT;
 const sqlTablePath = './model/01_schema.sql';
 const sqlPopulatePath = './model/02_init.sql';
 
@@ -26,6 +27,7 @@ let databaseConnection;
       // databaseConnection = mysql.createConnection(connectionString);
       databaseConnection = mysql.createConnection({
         host: 'roundhouse.proxy.rlwy.net',
+        port: '46897',
         user: 'root',
         password: '',
         database: 'mmgadb'
