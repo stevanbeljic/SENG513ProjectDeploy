@@ -27,7 +27,6 @@ let databaseConnection;
       // databaseConnection = mysql.createConnection(connectionString);
       databaseConnection = mysql.createConnection({
         host: 'roundhouse.proxy.rlwy.net',
-        port: '46897',
         user: 'root',
         password: 'password',
         database: 'mmgadb'
