@@ -34,13 +34,13 @@ let databaseConnection;
   }
 
   //creates the database if it does not exist already
-  databaseConnection.query("CREATE DATABASE IF NOT EXISTS MMGADB", (err, results) => {
-    if (err) {
-        console.error('Error creating database:', err);
-        return;
-    }
-    console.log('Database "mmgadb" created');
-  });
+  // databaseConnection.query("CREATE DATABASE IF NOT EXISTS MMGADB", (err, results) => {
+  //   if (err) {
+  //       console.error('Error creating database:', err);
+  //       return;
+  //   }
+  //   console.log('Database "mmgadb" created');
+  // });
 
   databaseConnection.query("USE MMGADB", (err, results) => {
     if (err) {
