@@ -9,29 +9,28 @@ require('dotenv').config();
 const dbHost = process.env.DB_HOST;
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
+const connectionString = process.env.MYSQL_URL;
 const sqlTablePath = './model/01_schema.sql';
 const sqlPopulatePath = './model/02_init.sql';
 
 console.log(dbHost)
 console.log(dbUser)
 console.log(dbPassword)
+console.log(connectionString)
 
 //database setup
 let databaseConnection;
 
   try {
       // Create a new connection
-      databaseConnection = mysql.createConnection({
-          host: process.env.DB_HOST,
-          user: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-      });
+      databaseConnection = mysql.createConnection(connectionString);
 
       // Print connection thread
       console.log(`Connected!`);
   } catch (err) {
       // Print error
       console.log(err);
+      return;
   }
 
   //creates the database if it does not exist already
