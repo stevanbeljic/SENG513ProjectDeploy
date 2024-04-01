@@ -23,7 +23,13 @@ let databaseConnection;
 
   try {
       // Create a new connection
-      databaseConnection = mysql.createConnection(connectionString);
+      // databaseConnection = mysql.createConnection(connectionString);
+      databaseConnection = mysql.createConnection({
+        host: 'roundhouse.proxy.rlwy.net',
+        user: 'root',
+        password: '',
+        database: 'mmgadb'
+      });
 
       // Print connection thread
       console.log(`Connected!`);
@@ -42,13 +48,13 @@ let databaseConnection;
   //   console.log('Database "mmgadb" created');
   // });
 
-  databaseConnection.query("USE MMGADB", (err, results) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      return;
-    }
-    console.log('"Use mmgadb" executed successfully');
-  });
+  // databaseConnection.query("USE MMGADB", (err, results) => {
+  //   if (err) {
+  //     console.error('Error executing query:', err);
+  //     return;
+  //   }
+  //   console.log('"Use mmgadb" executed successfully');
+  // });
 
 
   const executeSqlFile = (filePath, connection) => {
