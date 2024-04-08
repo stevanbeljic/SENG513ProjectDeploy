@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const databaseConnection = require('../model/model');
+const bcrypt = require('bcryptjs');
 const saltTime = 2;
 
 module.exports = function(databaseConnection) {
