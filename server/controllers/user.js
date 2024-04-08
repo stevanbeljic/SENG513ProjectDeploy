@@ -2,11 +2,17 @@ const express = require('express');
 const router = express.Router();
 const databaseConnection = require('../model/model');
 const mariadb = require('mariadb');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltTime = 2;
 
+
+
+module.exports = function(databaseConnection) {
+  const router = express.Router();
+
+
+  
 router.post('/confirmRequest', (req, res) => {
-  console.log("here");
   const {username} = req.query;
   const {friendUsername} = req.query;
   databaseConnection.query('INSERT IGNORE INTO `friends`(`user1_id`, `user2_id`) SELECT (SELECT id FROM users WHERE username=?), (SELECT id FROM users WHERE username=?)', [username, friendUsername], (err, results) => {
@@ -14,7 +20,6 @@ router.post('/confirmRequest', (req, res) => {
       console.error("Error executing insertion query ", err);
       return res.status(500).send('Internal server error');
     }
-    console.log("friendship was inserted");
     databaseConnection.query('DELETE FROM friendrequests WHERE requestTo = (SELECT id FROM users WHERE username = ?) AND requestFrom = (SELECT id FROM users WHERE username = ?)', [username, friendUsername], (err, results) => {
       if(err){
         console.error("Error executing deletion query");
@@ -53,17 +58,18 @@ router.post('/sendRequest', (req, res) => {
         console.error("Error executing search query", error);
         return res.status(500).send('Internal server error');
       }
-      console.log(result);
-      if(result.length!=0){
-        return res.sendStatus(409);
+      for(let friend of result){
+        if(friend.username == friendUser){
+          //already friends with requested friend
+          return res.sendStatus(409);
+        }
       }
 
-      databaseConnection.query('INSERT INTO `friendrequests` (`requestTo`, `requestFrom`) SELECT (SELECT id FROM users WHERE username=?), (SELECT id FROM users WHERE username=?)', [friendUser, username], (err, results) => {
+      databaseConnection.query('INSERT IGNORE INTO `friendrequests` (`requestTo`, `requestFrom`) SELECT (SELECT id FROM users WHERE username=?), (SELECT id FROM users WHERE username=?)', [friendUser, username], (err, results) => {
         if(err){
           console.error("Error executing send friend request query", err);
           return res.status(500).send('Internal server error');
         }
-        console.log("sent friend request");
         return res.sendStatus(200);
       });
     });
@@ -203,8 +209,6 @@ router.post('/createAccount', async (req, res) => {
 
     return res.status(400).send('All fields are required');
   }
-  console.log(username, email, password, role);
-  console.log(req.body);
   // Check if the username already exists
   databaseConnection.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
     if (err) {
@@ -218,7 +222,6 @@ router.post('/createAccount', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, saltTime);
-    console.log(hashedPassword);
 
     // Insert the new user into the database
     databaseConnection.query('INSERT INTO users (role, username, password) VALUES (?, ?, ?)', [role, username, hashedPassword], (err, result) => {
@@ -227,9 +230,27 @@ router.post('/createAccount', async (req, res) => {
         return res.status(500).send('Internal server error');
       }
 
-      // User account created successfully
+      if(role == 'developer'){
+        databaseConnection.query('SELECT id FROM users WHERE username = ?', [username], (err, results) => {
+          if (err){
+            console.error("Error getting user id: ", err);
+            return res.status(500).send("Internal server error");
+          }
+
+          const userId = results[0].id;
+
+          databaseConnection.query('INSERT INTO developer (developer_id) VALUES (?)', [userId], (err, result) => {
+            if (err){
+              console.error("Error inserting developer: ", err);
+              return res.status(500).send("Internal server error");
+            }
+          })
+        })
+      }
       res.status(201).send('User account created successfully');
+      })
     });
   });
-});
-module.exports = router;
+
+  return router;
+};

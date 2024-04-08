@@ -76,3 +76,11 @@ CREATE TABLE IF NOT EXISTS topgames (
     FOREIGN KEY (game_id) REFERENCES game(id),
     PRIMARY KEY (user_id, game_id)
 );
+
+CREATE TABLE IF NOT EXISTS likes (
+    user_id INT,
+    discussion_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (discussion_id) REFERENCES discussion(discussion_id),
+    PRIMARY KEY (user_id, discussion_id)
+);
