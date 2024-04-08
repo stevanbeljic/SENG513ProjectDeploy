@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS developer (
 CREATE TABLE IF NOT EXISTS game (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
-    description VARCHAR(400) NOT NULL,
+    description VARCHAR(4000) NOT NULL,
     genre VARCHAR(50) NOT NULL,
     thumbnail VARCHAR(100), -- relative path to image
     appstoreprice DECIMAL(4, 2),

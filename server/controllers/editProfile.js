@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const databaseConnection = require('../model/model');
-
+const saltTime = 2;
 
 module.exports = function(databaseConnection) {
     const router = express.Router();
@@ -15,7 +15,7 @@ module.exports = function(databaseConnection) {
             return res.status(400).send('Nothing to update');
         }
     
-        databaseConnection.query('SELECT * FROM users WHERE username = ?', [username], (error, results) => {
+        databaseConnection.query('SELECT * FROM users WHERE username = ?', [username], async (error, results) => {
             if(error){
                 console.error('Unable to execute query');
                 return res.status(500).send('Internal server error');
@@ -27,8 +27,9 @@ module.exports = function(databaseConnection) {
             }
     
             //only update password if a password was provided
-            if(password){
-                databaseConnection.query('UPDATE users SET password = ? WHERE username = ?', [password, username], (error, results) => {
+            if(password!="" || password!=null){
+                const hashedPassword = await bcrypt.hash(password, saltTime);
+                databaseConnection.query('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, username], (error, results) => {
                     if (error) {
                         console.error('Unable to execute query');
                         return res.status(500).send('Internal server error');
@@ -37,7 +38,7 @@ module.exports = function(databaseConnection) {
             }
     
             //only update bio if a bio was provided
-            if(bio){
+            if(bio!="" || bio!=null){
                 databaseConnection.query('UPDATE users SET bio = ? WHERE username = ?', [bio, username], (error, results) => {
                     if (error) {
                         console.error('Unable to execute query');
