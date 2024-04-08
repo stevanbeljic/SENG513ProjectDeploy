@@ -27,7 +27,7 @@ module.exports = function(databaseConnection) {
             }
     
             //only update password if a password was provided
-            if(password!="" || password!=null){
+            if(password!="" && password!=null){
                 const hashedPassword = await bcrypt.hash(password, saltTime);
                 databaseConnection.query('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, username], (error, results) => {
                     if (error) {
@@ -38,7 +38,7 @@ module.exports = function(databaseConnection) {
             }
     
             //only update bio if a bio was provided
-            if(bio!="" || bio!=null){
+            if(bio!="" && bio!=null){
                 databaseConnection.query('UPDATE users SET bio = ? WHERE username = ?', [bio, username], (error, results) => {
                     if (error) {
                         console.error('Unable to execute query');

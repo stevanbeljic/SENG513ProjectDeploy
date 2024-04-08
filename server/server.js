@@ -11,7 +11,9 @@ const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(express.json()); // This line adds JSON parsing middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://makemobilegreatagain.pages.dev'
+}));
 app.use('/uploads', express.static('uploads')); //used to access images stored in server
 
 // Get the database connection promise
