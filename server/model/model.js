@@ -86,7 +86,7 @@ const connectToDatabase = new Promise((resolve, reject) => {
       };
 
       executeSqlFile("./db_init/01_schema.sql", databaseConnection);
-      executeSqlFile("./db_init/02_init.sql", databaseConnection);
+      // executeSqlFile("./db_init/02_init.sql", databaseConnection);
 
       // Resolve the promise with the database connection
       resolve(databaseConnection);
