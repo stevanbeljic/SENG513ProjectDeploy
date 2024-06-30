@@ -20,7 +20,7 @@
 
     const friendsList = ref([]);
     const fetchFriendInfo = async () => {
-            const route = "https://seng513project-production.up.railway.app/user/getFriends?username=" + username.value;
+            const route = "https://seng513projectdeploy.onrender.com/user/getFriends?username=" + username.value;
             console.log(route);
             console.log(username.value);
             const response = await fetch(route, {

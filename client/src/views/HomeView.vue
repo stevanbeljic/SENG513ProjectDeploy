@@ -20,19 +20,19 @@
   const trendingDiscussions = ref([]);
 
   const fetchNewsData = async () => {
-    const response = await fetch('https://seng513project-production.up.railway.app/homeDashboard');
+    const response = await fetch('https://seng513projectdeploy.onrender.com/homeDashboard');
     const data = await response.json();
     newsData.value = data;
   };
 
   const fetchTrendingGame = async () => {
-    const response = await fetch('https://seng513project-production.up.railway.app/game/trendingGame');
+    const response = await fetch('https://seng513projectdeploy.onrender.com/game/trendingGame');
     const data = await response.json();
     trendingGame.value = await data;
   }
 
   const fetchTrendingDiscussions = async() => {
-    const response = await fetch('https://seng513project-production.up.railway.app/discussion/trendingDiscussions');
+    const response = await fetch('https://seng513projectdeploy.onrender.com/discussion/trendingDiscussions');
     const data = await response.json();
     trendingDiscussions.value = await data;
   }
@@ -76,7 +76,7 @@
             </div>
             <router-link id="routerLink" :to="'/game/' + trendingGame.id">
               <div id="trendingContentDiv">
-                <img :src="'https://seng513project-production.up.railway.app' + trendingGame.thumbnail" alt="Image Unavailable"/>
+                <img :src="'https://seng513projectdeploy.onrender.com' + trendingGame.thumbnail" alt="Image Unavailable"/>
                 <div id="gameDescDiv">
                   <h3 v-text="trendingGame.name"></h3>
                   <p id="publisher" v-text="trendingGame.publisher"></p>

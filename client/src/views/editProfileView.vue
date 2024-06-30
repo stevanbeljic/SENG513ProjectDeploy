@@ -20,7 +20,7 @@
             bio: userbio.value
         };
 
-        const response = await fetch('https://seng513project-production.up.railway.app/editProfile', {
+        const response = await fetch('https://seng513projectdeploy.onrender.com/editProfile', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

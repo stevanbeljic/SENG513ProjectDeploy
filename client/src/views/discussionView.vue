@@ -11,7 +11,7 @@
     let loggedIn = ref(sessionStorage.getItem('loggedIn') === 'true');
     const fetchedGames = ref([]);
     const fetchAllGames = async () => {
-        const response = await fetch('https://seng513project-production.up.railway.app/game/getAllGames');
+        const response = await fetch('https://seng513projectdeploy.onrender.com/game/getAllGames');
         const games = await response.json();
         for (let game of games) {
             game.discussions = await fetchDiscussion(game.id);
@@ -21,7 +21,7 @@
     };
 
     const fetchDiscussion = async (id) => {
-        const response = await fetch('https://seng513project-production.up.railway.app/discussion/getDiscussionsByGame?id='+id);
+        const response = await fetch('https://seng513projectdeploy.onrender.com/discussion/getDiscussionsByGame?id='+id);
         return await response.json();
     }
 
@@ -63,7 +63,7 @@
     <div class="discussion-body-container">
         <div v-for="game in fetchedGames" :key="game.id" class="discussion-card">
             <div class="discussion-game-section">
-                <img :src="'https://seng513project-production.up.railway.app' + game.thumbnail" alt="Image Unavailable"/>
+                <img :src="'https://seng513projectdeploy.onrender.com' + game.thumbnail" alt="Image Unavailable"/>
                 <h1 v-text="game.name"></h1>
             </div>
             <div class="discussion-list-section">

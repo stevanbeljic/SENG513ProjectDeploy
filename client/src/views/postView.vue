@@ -31,7 +31,7 @@ defineExpose({loggedIn, username});
             return {route};
         },
         mounted() {
-            fetch("https://seng513project-production.up.railway.app/discussion/getDiscussionAndPosterById?id=" +  this.$route.params.discussionId, {method: "GET"})
+            fetch("https://seng513projectdeploy.onrender.com/discussion/getDiscussionAndPosterById?id=" +  this.$route.params.discussionId, {method: "GET"})
             .then(res => res.json())
             .then(data => {
                 this.game_name = data[0].name;
@@ -42,7 +42,7 @@ defineExpose({loggedIn, username});
             })
             .catch(err => console.log(err.message));
 
-            fetch("https://seng513project-production.up.railway.app/discussion/getDiscussionResponses?id=" +  this.$route.params.discussionId, {method: "GET"})
+            fetch("https://seng513projectdeploy.onrender.com/discussion/getDiscussionResponses?id=" +  this.$route.params.discussionId, {method: "GET"})
             .then(res => res.json())
             .then(data => {this.responses = data
             console.log(this.responses)})
